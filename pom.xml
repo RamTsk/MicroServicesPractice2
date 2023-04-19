@@ -13,5 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>storeapp</module>
+        <module>servletPractice</module>
     </modules>
 </project>
