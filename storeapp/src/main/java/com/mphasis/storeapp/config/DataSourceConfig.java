@@ -12,10 +12,15 @@ public class DataSourceConfig {
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.h2.Driver");
-        dataSourceBuilder.url("jdbc:h2:mem:test");
-        dataSourceBuilder.username("SA");
-        dataSourceBuilder.password("");
+//        dataSourceBuilder.driverClassName("org.h2.Driver");
+//        dataSourceBuilder.url("jdbc:h2:mem:test");
+//        dataSourceBuilder.username("SA");
+//        dataSourceBuilder.password("");
+        dataSourceBuilder.driverClassName("oracle.jdbc.driver.OracleDriver");
+        dataSourceBuilder.url("jdbc:oracle:thin:@localhost:1521:xe");
+        dataSourceBuilder.username("c##example");
+        dataSourceBuilder.password("example");
+
         return dataSourceBuilder.build();
     }
     @Bean

@@ -3,6 +3,8 @@ package com.mphasis.storeapp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.mphasis.storeapp.domain.Product;
@@ -13,10 +15,15 @@ public class ProductServiceImpl implements IProductService {
 
 	@Autowired
 	private IProductRepository repository;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Product addProduct(Product product) {
-		return repository.save(product);
+		String sql = "INSERT INTO PC_PRODUCTS VALUES("+product.getId()+","+product.getName()+","+product.getPrice()+")";
+		int count = jdbcTemplate.update(sql);
+		if (count>0) return product;
+		return null;
 	}
 
 	@Override
@@ -42,7 +49,7 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public List<Product> findAllProducts() {
-		return repository.findAll();
+		return jdbcTemplate.query("SELECT * FROM pc_products", new BeanPropertyRowMapper<Product>(Product.class));
 	}
 
 	@Override
